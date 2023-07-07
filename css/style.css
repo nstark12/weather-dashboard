@@ -29,6 +29,15 @@ input {
     height: 25px;
     padding: 5px;
     margin: 10px 0;
+    font-size: 14px;
+}
+
+ul {
+    list-style: none;
+}
+
+li {
+    color: black;
 }
 
 .search {

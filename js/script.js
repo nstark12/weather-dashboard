@@ -57,20 +57,43 @@ function get5DayForecast(cityName) {
         })
         .then(function(fiveDayData) {
             console.log(fiveDayData)
+                      
             // create a loop to make a weather card for each day
-
             var forecast = fiveDayData.list;
             for (var i = 0; i < 5; i++) {
                 var dailyForecast = forecast[i];
                 // var date = fiveDayData.main[i].dt
                 // console.log(date)
+
+                var forecastEl = document.createElement("div");
+                forecastEl.classList.add("card");
+                console.log(forecastEl)
+
                 var ul2 = document.createElement('ul');
+               
                 var tempEl = document.createElement('li');
                 tempEl.innerText = "Temp: " + dailyForecast.main.temp + " °F";
                 
                 ul2.appendChild(tempEl);
+                forecastEl.appendChild(tempEl)
+                
+                var windEl = document.createElement('li');
+                windEl.innerText = "Wind: " + dailyForecast.wind.speed + " mph";
+                
+                
+                ul2.appendChild(windEl);
+                forecastEl.appendChild(windEl)
+
+                var humEl = document.createElement('li');
+                humEl.innerText = "Humidity: " + dailyForecast.main.humidity + " %";
+
+                ul2.appendChild(humEl);
+                forecastEl.appendChild(humEl);
+                
+                extendedWeather.appendChild(forecastEl);
                 extendedWeather.appendChild(ul2);
-                console.log(tempEl)
+
+
 
             }
 

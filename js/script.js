@@ -17,31 +17,26 @@ function getWeatherByCity(cityName) {
     // fetch request to get weather by city name
     fetch("https://api.openweathermap.org/data/2.5/weather?q=" + cityName + "&units=imperial&appid=" + apiKey)
         .then(function(response) {
-            console.log(response)
             return response.json()
         })
         .then(function(weatherData) {
-            console.log(weatherData)
             // create a div for city name and icon
             var container = document.createElement("div");
             container.classList.add("container");
             // create a title with city name
             var h2 = document.createElement('h2');
+            // create an icon pulled from api
             var currentIcon = document.createElement('img');
             currentIcon.classList.add("lg-icon");
             currentIcon.setAttribute("src", "https://openweathermap.org/img/wn/" + weatherData.weather[0].icon + "@2x.png");
 
+            // append h2 and icon to container
             container.appendChild(h2);
             container.appendChild(currentIcon);
-            console.log(currentIcon)
-            
-            console.log(container)
 
             // capitalize first letter of city name
             h2.innerText = cityName.charAt(0).toUpperCase() + cityName.slice(1);
-            // append new title to currentWeather div
-            // currentWeather.appendChild(h2);
-            // currentWeather.appendChild(currentIcon);
+            
             // create list items
                 var ul = document.createElement('ul');
                 // temperature
@@ -89,16 +84,28 @@ function get5DayForecast(cityName) {
                 // create a card
                 var forecastEl = document.createElement("div");
                 forecastEl.classList.add("card");
-                console.log(forecastEl)
 
                 // create an unordered list
                 var ul2 = document.createElement('ul');
+
+                // create and append a date to list item
+                var currentDate = dailyForecast.dt;
+                currentDate = dayjs.unix(currentDate).format("MM/DD/YYYY");
+
+                var dateEl = document.createElement('li');
+                dateEl.innerText = currentDate;
+                // change format of date to be readable
+                
+
+
+                ul2.appendChild(dateEl);
+                forecastEl.appendChild(dateEl);
+                
                
                 // create and append a weather icon list item
                 var iconEl = document.createElement('img');
                 iconEl.setAttribute("src", "https://openweathermap.org/img/wn/" + dailyForecast.weather[0].icon + "@2x.png");
 
-                console.log(iconEl)
 
                 ul2.appendChild(iconEl);
                 forecastEl.appendChild(iconEl);

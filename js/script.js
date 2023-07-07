@@ -2,8 +2,10 @@ var apiKey = "e6676e78c5006f290530288e910ece07";
 var currentWeather = document.querySelector(".current-weather");
 var extendedWeather = document.querySelector(".extended-weather");
 var cityInputEl = document.querySelector(".search-city");
+var clearEl = document.querySelector(".clear");
 var cityForm = document.querySelector("#city-form")
-var searchHistory = [];
+var historyEl = document.querySelector(".search-history");
+var searchHistory = JSON.parse(localStorage.getItem("search")) || [];
 
 function getCityInput(event) {
     event.preventDefault();
@@ -11,6 +13,9 @@ function getCityInput(event) {
     clearCurrent();
     getWeatherByCity(cityName);
     get5DayForecast(cityName);
+    searchHistory.push(cityName);
+    localStorage.setItem("search", JSON.stringify(searchHistory));
+    renderSearchHistory();
 }
 
 function getWeatherByCity(cityName) {
@@ -73,7 +78,6 @@ function get5DayForecast(cityName) {
         .then(function(fiveDayData) {
             console.log(fiveDayData)
             
-                      
             // create a loop to make a weather card for each day
             var forecast = fiveDayData.list;
             for (var i = 0; i < 5; i++) {
@@ -89,19 +93,16 @@ function get5DayForecast(cityName) {
                 var ul2 = document.createElement('ul');
 
                 // create and append a date to list item
+                // change format of date to be readable
                 var currentDate = dailyForecast.dt;
                 currentDate = dayjs.unix(currentDate).format("MM/DD/YYYY");
 
                 var dateEl = document.createElement('li');
                 dateEl.innerText = currentDate;
-                // change format of date to be readable
                 
-
-
                 ul2.appendChild(dateEl);
                 forecastEl.appendChild(dateEl);
                 
-               
                 // create and append a weather icon list item
                 var iconEl = document.createElement('img');
                 iconEl.setAttribute("src", "https://openweathermap.org/img/wn/" + dailyForecast.weather[0].icon + "@2x.png");
@@ -133,13 +134,33 @@ function get5DayForecast(cityName) {
                 
                 extendedWeather.appendChild(forecastEl);
                 extendedWeather.appendChild(ul2);
-
-
-
             }
-
         })
 }
+
+// get information from storage
+function renderSearchHistory() {
+    historyEl.innerText = "";
+    for (let i = 0; i < searchHistory.length; i++) {
+        var searchItem = document.createElement("input");
+        // searchItem.innerText = searchHistory[i];
+        // searchItem.addEventListener("click", function() {
+        //     getWeatherByCity(cityName);
+        //     get5DayForecast(cityName);
+        // })
+        searchItem.setAttribute("type", "text");
+        searchItem.setAttribute("readonly", true);
+        searchItem.setAttribute("value", searchHistory[i]);
+        searchItem.addEventListener("click", function() {
+            getWeatherByCity(searchItem.value);
+            get5DayForecast(searchItem.value);
+        })
+        historyEl.append(searchItem);
+    }
+}
+
+renderSearchHistory();
+
 
 // function to clear current search when new input is submitted
 function clearCurrent() {
@@ -148,9 +169,18 @@ function clearCurrent() {
 
     var fiveDayConditionsEl = document.querySelector(".extended-weather");
     fiveDayConditionsEl.innerText = "";
+    
 
     return;
 }
 
+clearEl.addEventListener("click", function() {
+    searchHistory = [];
+    renderSearchHistory();
+})
+
+
 // event listener for city search
 cityForm.addEventListener("submit", getCityInput)
+
+

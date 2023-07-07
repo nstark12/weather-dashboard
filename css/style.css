@@ -25,6 +25,10 @@ main {
 
 }
 
+button {
+    margin-bottom: 20px;
+}
+
 /* styles text input bar */
 input {
     width: 100%;

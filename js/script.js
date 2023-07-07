@@ -1,4 +1,13 @@
 var apiKey = "e6676e78c5006f290530288e910ece07";
+var currentWeather = document.querySelector(".current-weather");
+var cityInputEl = document.querySelector(".search-city");
+var cityForm = document.querySelector("#city-form")
+
+function getCityInput(event) {
+    event.preventDefault();
+    var cityName = cityInputEl.value;
+    getWeatherByCity(cityName);
+}
 
 function getWeatherByCity(cityName) {
     // fetch request to get weather by city name
@@ -10,7 +19,6 @@ function getWeatherByCity(cityName) {
         .then(function(weatherData) {
             console.log(weatherData)
             // create a title with city name
-            var currentWeather = document.querySelector(".current-weather");
             var h2 = document.createElement('h2');
             h2.innerText = cityName;
             // append new title to currentWeather div
@@ -35,4 +43,16 @@ function getWeatherByCity(cityName) {
         })
 }
 
-getWeatherByCity("Milwaukee");
+function get5DayForecast(cityName) {
+    // fetch request to get 5 day forecast by city name
+    fetch("https://api.openweathermap.org/data/2.5/forecast?q=" + cityName + "&units=imperial&appid=" + apiKey)
+        .then(function(response) {
+            console.log(response)
+            return response.json()
+        })
+}
+
+// event listener for city search
+cityForm.addEventListener("submit", getCityInput)
+
+console.log(cityForm)

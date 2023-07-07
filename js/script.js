@@ -60,6 +60,11 @@ function getWeatherByCity(cityName) {
             // append unordered list to currentWeather div
             currentWeather.appendChild(container);
             currentWeather.appendChild(ul);
+
+            var forecastHeader = document.createElement('h3');
+            forecastHeader.innerText = "5 Day Forecast: ";
+            currentWeather.appendChild(forecastHeader);
+
         })
 }
 
@@ -72,6 +77,7 @@ function get5DayForecast(cityName) {
         })
         .then(function(fiveDayData) {
             console.log(fiveDayData)
+            
                       
             // create a loop to make a weather card for each day
             var forecast = fiveDayData.list;

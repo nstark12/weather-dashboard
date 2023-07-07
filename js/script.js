@@ -65,25 +65,38 @@ function get5DayForecast(cityName) {
                 // var date = fiveDayData.main[i].dt
                 // console.log(date)
 
+                // create a card
                 var forecastEl = document.createElement("div");
                 forecastEl.classList.add("card");
                 console.log(forecastEl)
 
+                // create an unordered list
                 var ul2 = document.createElement('ul');
                
+                // create and append a weather icon list item
+                var iconEl = document.createElement('img');
+                iconEl.setAttribute("src", "https://openweathermap.org/img/wn/" + dailyForecast.weather[0].icon + "@2x.png");
+
+                console.log(iconEl)
+
+                ul2.appendChild(iconEl);
+                forecastEl.appendChild(iconEl);
+
+                // create and append a temperature list item
                 var tempEl = document.createElement('li');
                 tempEl.innerText = "Temp: " + dailyForecast.main.temp + " °F";
                 
                 ul2.appendChild(tempEl);
                 forecastEl.appendChild(tempEl)
                 
+                // create and append a wind list item
                 var windEl = document.createElement('li');
                 windEl.innerText = "Wind: " + dailyForecast.wind.speed + " mph";
-                
                 
                 ul2.appendChild(windEl);
                 forecastEl.appendChild(windEl)
 
+                // create and append a humidity list item
                 var humEl = document.createElement('li');
                 humEl.innerText = "Humidity: " + dailyForecast.main.humidity + " %";
 
@@ -100,6 +113,7 @@ function get5DayForecast(cityName) {
         })
 }
 
+// function to clear current search when new input is submitted
 function clearCurrent() {
     var currentConditionsEl = document.querySelector(".current-weather");
     currentConditionsEl.innerText = "";
@@ -112,5 +126,3 @@ function clearCurrent() {
 
 // event listener for city search
 cityForm.addEventListener("submit", getCityInput)
-
-console.log(cityForm)

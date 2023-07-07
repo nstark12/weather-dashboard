@@ -40,6 +40,10 @@ li {
     color: black;
 }
 
+img {
+    height: 50px;
+}
+
 .search {
     margin: 20px;
     flex: 1 1 0;

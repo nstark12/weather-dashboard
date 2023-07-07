@@ -22,12 +22,26 @@ function getWeatherByCity(cityName) {
         })
         .then(function(weatherData) {
             console.log(weatherData)
+            // create a div for city name and icon
+            var container = document.createElement("div");
+            container.classList.add("container");
             // create a title with city name
             var h2 = document.createElement('h2');
+            var currentIcon = document.createElement('img');
+            currentIcon.classList.add("lg-icon");
+            currentIcon.setAttribute("src", "https://openweathermap.org/img/wn/" + weatherData.weather[0].icon + "@2x.png");
+
+            container.appendChild(h2);
+            container.appendChild(currentIcon);
+            console.log(currentIcon)
+            
+            console.log(container)
+
             // capitalize first letter of city name
             h2.innerText = cityName.charAt(0).toUpperCase() + cityName.slice(1);
             // append new title to currentWeather div
-            currentWeather.appendChild(h2);
+            // currentWeather.appendChild(h2);
+            // currentWeather.appendChild(currentIcon);
             // create list items
                 var ul = document.createElement('ul');
                 // temperature
@@ -44,6 +58,7 @@ function getWeatherByCity(cityName) {
                 ul.appendChild(li2);
                 ul.appendChild(li3);
             // append unordered list to currentWeather div
+            currentWeather.appendChild(container);
             currentWeather.appendChild(ul);
         })
 }

@@ -89,3 +89,14 @@ img {
     font-size: 14px;
     color: white;
 }
+
+.container {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.lg-icon {
+    height: 70px;
+}
+

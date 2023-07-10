@@ -7,8 +7,7 @@ var cityForm = document.querySelector("#city-form")
 var historyEl = document.querySelector(".search-history");
 var searchHistory = JSON.parse(localStorage.getItem("search")) || [];
 
-
-
+// function to get user input
 function getCityInput(event) {
     event.preventDefault();
     var searchTerm = cityInputEl.value;
@@ -18,9 +17,9 @@ function getCityInput(event) {
     searchHistory.push(searchTerm);
     localStorage.setItem("search", JSON.stringify(searchHistory));
     pastSearch(searchTerm);
-    // renderSearchHistory();
 }
 
+// function to get current weathr data for user input city
 function getWeatherByCity(cityName) {
     // fetch request to get weather by city name
     fetch("https://api.openweathermap.org/data/2.5/weather?q=" + cityName + "&units=imperial&appid=" + apiKey)
@@ -71,6 +70,7 @@ function getWeatherByCity(cityName) {
         })
 }
 
+// function to get five day forecast from user input city
 function get5DayForecast(cityName) {
     // fetch request to get 5 day forecast by city name
     fetch("https://api.openweathermap.org/data/2.5/forecast?q=" + cityName + "&units=imperial&appid=" + apiKey)
@@ -157,9 +157,6 @@ var pastSearch = function(pastSearch) {
     pastSearchEl.setAttribute("type", "submit");
 
     historyEl.prepend(pastSearchEl);
-
-
-
 }
 
 // when past search button is clicked, display that city's weather

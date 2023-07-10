@@ -140,30 +140,20 @@ function get5DayForecast(cityName) {
         })
 }
 
-
-
-
-
-
-
+// function to clear history
 function clearHistory(event) {
     event.preventDefault();
     localStorage.removeItem("search");
     historyEl.innerHTML = "";
     return;
 }
-console.log(clearHistory)
 
 // get information from storage
 function renderSearchHistory() {
-    historyEl.innerText = "";
+    historyEl.innerHTML = "";
     for (let i = 0; i < searchHistory.length; i++) {
         var searchItem = document.createElement("input");
-        // searchItem.innerText = searchHistory[i];
-        // searchItem.addEventListener("click", function() {
-        //     getWeatherByCity(cityName);
-        //     get5DayForecast(cityName);
-        // })
+      
         searchItem.setAttribute("type", "text");
         searchItem.setAttribute("readonly", true);
         searchItem.setAttribute("value", searchHistory[i]);
@@ -195,12 +185,6 @@ function clearCurrent() {
 
 
 // event listener for city search
-// cityForm.addEventListener("submit", getCityInput)
-
-// clearEl.addEventListener("click", function() {
-//     searchHistory = [];
-//     renderSearchHistory();
-// })
 
 cityForm.addEventListener("submit", getCityInput);
 clearEl.addEventListener("click", clearHistory);

@@ -75,7 +75,7 @@ h3 {
 }
 
 /* styles search button */
-.search-btn {
+.search-btn, .clear {
     width: 100%;
     padding: 10px;
     background: var(--blue);
@@ -131,5 +131,11 @@ h3 {
 /* styles the larger icon created in javascript */
 .lg-icon {
     height: 70px;
+}
+
+.list-group-item {
+    list-style: none;
+    color: black;
+    background: blue;
 }
 

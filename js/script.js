@@ -81,9 +81,11 @@ function get5DayForecast(cityName) {
         .then(function(fiveDayData) {
             console.log(fiveDayData)
             
-            // create a loop to make a weather card for each day
+            // create a loop to make a weather card for each day, need to use array to not get data every 3 hours
+            var day = [0, 8, 16, 24, 32];
             var forecast = fiveDayData.list;
-            for (var i = 0; i < 5; i++) {
+            // for (var i = 0; i < 5; i++) {
+                day.forEach(function (i) {
                 var dailyForecast = forecast[i];
                 // var date = fiveDayData.main[i].dt
                 // console.log(date)
@@ -137,7 +139,7 @@ function get5DayForecast(cityName) {
                 
                 extendedWeather.appendChild(forecastEl);
                 extendedWeather.appendChild(ul2);
-            }
+            })
         })
 }
 

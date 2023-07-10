@@ -17,7 +17,8 @@ function getCityInput(event) {
     get5DayForecast(searchTerm);
     searchHistory.push(searchTerm);
     localStorage.setItem("search", JSON.stringify(searchHistory));
-    renderSearchHistory();
+    pastSearch(searchTerm);
+    // renderSearchHistory();
 }
 
 function getWeatherByCity(cityName) {
@@ -148,26 +149,28 @@ function clearHistory(event) {
     return;
 }
 
-// get information from storage
-function renderSearchHistory() {
-    historyEl.innerHTML = "";
-    for (let i = 0; i < searchHistory.length; i++) {
-        var searchItem = document.createElement("input");
-      
-        searchItem.setAttribute("type", "text");
-        searchItem.setAttribute("readonly", true);
-        searchItem.setAttribute("value", searchHistory[i]);
-        searchItem.addEventListener("click", function() {
-            clearCurrent();
-            getWeatherByCity(searchItem.value);
-            get5DayForecast(searchItem.value);
-        })
-        historyEl.append(searchItem);
-    }
+// turn search into button
+var pastSearch = function(pastSearch) {
+    var pastSearchEl = document.createElement("button");
+    pastSearchEl.textContent = pastSearch;
+    pastSearchEl.setAttribute("data-city", pastSearch);
+    pastSearchEl.setAttribute("type", "submit");
+
+    historyEl.prepend(pastSearchEl);
+
+
+
 }
 
-renderSearchHistory();
-
+// when past search button is clicked, display that city's weather
+var pastSearchHandler = function(event) {
+    var city = event.target.getAttribute("data-city");
+    if(city) {
+        clearCurrent();
+        getWeatherByCity(city);
+        get5DayForecast(city);
+    }
+}
 
 // function to clear current search when new input is submitted
 function clearCurrent() {
@@ -184,9 +187,10 @@ function clearCurrent() {
 
 
 
-// event listener for city search
+// event listeners
 
 cityForm.addEventListener("submit", getCityInput);
+historyEl.addEventListener("click", pastSearchHandler);
 clearEl.addEventListener("click", clearHistory);
 
 

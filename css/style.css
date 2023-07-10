@@ -25,8 +25,23 @@ main {
 
 }
 
+/* styles buttons */
 button {
     margin-bottom: 20px;
+    width: 100%;
+    padding: 10px;
+    background: lightblue;
+    color: black;
+    border: none;
+    border-radius: 4px;
+    font-size: 18px;
+}
+
+/* adds hover class to buttons */
+button:hover {
+    background: var(--blue);
+    cursor: pointer;
+    color: white;
 }
 
 /* styles text input bar */
@@ -86,7 +101,7 @@ h3 {
 }
 
 /* adds a hover class to search button */
-.search-btn:hover {
+.search-btn:hover, .clear:hover {
     cursor: pointer;
     background: darkblue;
 }
@@ -110,6 +125,7 @@ h3 {
     background: var(--blue);
     padding: 20px;
     border-radius: 10px;
+    border: 2px solid white;
     
 }
 
@@ -133,9 +149,24 @@ h3 {
     height: 70px;
 }
 
-.list-group-item {
-    list-style: none;
-    color: black;
-    background: blue;
+@media(max-width: 950px) {
+
+    /* changes flex to column for responsiveness */
+    main {
+        display: flex;
+        flex-direction: column;
+    }
+
+    /* changes flex to column in five day section for responsiveness */
+    .extended-weather {
+        display: flex;
+        flex-direction: column;
+    }
+
+    /* gives margin to bottom of each card */
+    .card {
+        margin-bottom: 10px;
+    }
+   
 }
 

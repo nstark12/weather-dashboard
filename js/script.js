@@ -163,7 +163,7 @@ var pastSearch = function(pastSearch) {
 }
 
 // when past search button is clicked, display that city's weather
-var pastSearchHandler = function(event) {
+var pastSearchData = function(event) {
     var city = event.target.getAttribute("data-city");
     if(city) {
         clearCurrent();
@@ -190,7 +190,7 @@ function clearCurrent() {
 // event listeners
 
 cityForm.addEventListener("submit", getCityInput);
-historyEl.addEventListener("click", pastSearchHandler);
+historyEl.addEventListener("click", pastSearchData);
 clearEl.addEventListener("click", clearHistory);
 
 

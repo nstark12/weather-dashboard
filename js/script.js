@@ -7,13 +7,15 @@ var cityForm = document.querySelector("#city-form")
 var historyEl = document.querySelector(".search-history");
 var searchHistory = JSON.parse(localStorage.getItem("search")) || [];
 
+
+
 function getCityInput(event) {
     event.preventDefault();
-    var cityName = cityInputEl.value;
+    var searchTerm = cityInputEl.value;
     clearCurrent();
-    getWeatherByCity(cityName);
-    get5DayForecast(cityName);
-    searchHistory.push(cityName);
+    getWeatherByCity(searchTerm);
+    get5DayForecast(searchTerm);
+    searchHistory.push(searchTerm);
     localStorage.setItem("search", JSON.stringify(searchHistory));
     renderSearchHistory();
 }
@@ -138,6 +140,20 @@ function get5DayForecast(cityName) {
         })
 }
 
+
+
+
+
+
+
+function clearHistory(event) {
+    event.preventDefault();
+    localStorage.removeItem("search");
+    historyEl.innerHTML = "";
+    return;
+}
+console.log(clearHistory)
+
 // get information from storage
 function renderSearchHistory() {
     historyEl.innerText = "";
@@ -152,6 +168,7 @@ function renderSearchHistory() {
         searchItem.setAttribute("readonly", true);
         searchItem.setAttribute("value", searchHistory[i]);
         searchItem.addEventListener("click", function() {
+            clearCurrent();
             getWeatherByCity(searchItem.value);
             get5DayForecast(searchItem.value);
         })
@@ -174,13 +191,19 @@ function clearCurrent() {
     return;
 }
 
-clearEl.addEventListener("click", function() {
-    searchHistory = [];
-    renderSearchHistory();
-})
+
 
 
 // event listener for city search
-cityForm.addEventListener("submit", getCityInput)
+// cityForm.addEventListener("submit", getCityInput)
+
+// clearEl.addEventListener("click", function() {
+//     searchHistory = [];
+//     renderSearchHistory();
+// })
+
+cityForm.addEventListener("submit", getCityInput);
+clearEl.addEventListener("click", clearHistory);
 
 
+console.log(get5DayForecast, getWeatherByCity)

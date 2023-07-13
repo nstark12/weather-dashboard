@@ -205,3 +205,4 @@ clearEl.addEventListener("click", clearHistory);
 
 
 console.log(get5DayForecast, getWeatherByCity)
+

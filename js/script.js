@@ -44,6 +44,14 @@ function getWeatherByCity(cityName) {
             // capitalize first letter of city name
             h2.innerText = cityName.charAt(0).toUpperCase() + cityName.slice(1);
             
+             // add date
+
+             var today = dayjs().format('dddd, MMMM D');
+             console.log(today);
+
+            var dateEl = document.createElement('h4');
+            dateEl.innerText = today;
+
             // create list items
                 var ul = document.createElement('ul');
                 // temperature
@@ -61,7 +69,10 @@ function getWeatherByCity(cityName) {
                 ul.appendChild(li3);
             // append unordered list to currentWeather div
             currentWeather.appendChild(container);
+            currentWeather.appendChild(dateEl);
             currentWeather.appendChild(ul);
+            
+    
 
             var forecastHeader = document.createElement('h3');
             forecastHeader.innerText = "5 Day Forecast: ";

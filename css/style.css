@@ -80,6 +80,11 @@ h3 {
     font-size: 30px;
 }
 
+h4 {
+    font-size: 20px;
+    margin-bottom: 10px;
+}
+
 /* class selectors */
 /* styles the left side of page, search for a city */
 .search {

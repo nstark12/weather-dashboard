@@ -163,13 +163,17 @@ function clearHistory(event) {
 }
 
 // turn search into button
-var pastSearch = function(pastSearch) {
-    var pastSearchEl = document.createElement("button");
-    pastSearchEl.textContent = pastSearch;
-    pastSearchEl.setAttribute("data-city", pastSearch);
-    pastSearchEl.setAttribute("type", "submit");
+var pastSearch = function() {
+    historyEl.innerHTML = '';
 
-    historyEl.prepend(pastSearchEl);
+    for (i = 0; i < searchHistory.length; i++) {
+    var pastSearchEl = document.createElement("button");
+    pastSearchEl.textContent = searchHistory[i];
+    pastSearchEl.setAttribute("data-city", searchHistory[i]);
+    historyEl.appendChild(pastSearchEl);
+
+    }
+    return;
 }
 
 // when past search button is clicked, display that city's weather
@@ -198,7 +202,7 @@ function clearCurrent() {
 
 
 // event listeners
-
+pastSearch();
 cityForm.addEventListener("submit", getCityInput);
 historyEl.addEventListener("click", pastSearchData);
 clearEl.addEventListener("click", clearHistory);
